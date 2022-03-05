@@ -2,10 +2,10 @@ import React, { useState, useRef } from 'react';
 import './App.css';
 
 const items = [
-  'a1.jpeg',
-  'a2.jpeg',
-  'a3.jpeg',
-  'a4.jpeg',
+  'a1.png',
+  'a2.png',
+  'a3.png',
+  'a4.png',
 ]
 
 const desc = [
@@ -14,6 +14,46 @@ const desc = [
   'running',
   'cereal',
 ]
+
+const balloonPositions = [
+  [5, 15, 0],
+  [8, 75, 1],
+  [20, 20, 2],
+  [25, 80, 1],
+  [45, 10, 2],
+  [50, 28, 1],
+  [55, 75, 2],
+  [65, 15, 0],
+  [62, 85, 1],
+  [70, 70, 0],
+]
+
+const balloonColorMap = {
+  0: 'green',
+  1: 'red',
+  2: 'yellow',
+}
+
+const Background = () => (
+  <div className="bg-container">
+    <img
+      className="hbd-text"
+      src="assets/hbd.png"
+      alt="Happy birthday!"
+    />
+    {
+      balloonPositions.map((e, i) => (
+        <img
+          key={i}
+          className="balloon"
+          src={`assets/balloon-${balloonColorMap[e[2]]}.png`}
+          style={{ top: `${e[0]}%`, left: `${e[1]}%`, animationDelay: `${Math.random().toFixed(2)}s` }}
+          alt="balloon"
+        />
+      ))
+    }
+  </div>
+)
 
 const MainImg = ({ legUp, selected }) => {
   const n = legUp ? 2 : 1;
@@ -24,7 +64,7 @@ const MainImg = ({ legUp, selected }) => {
       {
         selected &&
         <img
-          className="stomp-target" 
+          className= {selected && !legUp ? 'stomp-target' : 'stomp-target flat'} 
           src={'assets/' + selected}
           style={{ transform: `scaleY(${scale})` }}
           alt="Stomped"
@@ -41,17 +81,24 @@ const MainImg = ({ legUp, selected }) => {
 }
 
 const BottomBar = ({ selectCallback }) => (
-  <div className="bottom-bar">
-    {
-      items.map((e, i) => (
-        <img
-          className="bottom-bar-item"
-          src={'assets/' + e}
-          alt={desc[i]}
-          onClick={() => selectCallback(e)}
-        />
-      ))
-    }
+  <div className="bottom-container">
+    <div className="bottom-bar">
+      {
+        items.map((e, i) => (
+          <img
+            key={i}
+            className="bottom-bar-item"
+            src={'assets/' + e}
+            alt={desc[i]}
+            onClick={() => selectCallback(e)}
+          />
+        ))
+      }
+    </div>
+    <img
+      src="assets/stomp-text.png"
+      alt="stomp"
+    />
   </div>
 )
 
@@ -63,20 +110,20 @@ function App() {
   revisionRef.current = revision;
 
   const handleSelect = (toSelect) => {
-    if(legUp) return;
+    if(selected) return;
     setRevision((prev) => prev + 1)
     setLegUp(true);
     setSelected(toSelect);
     setTimeout(() => {
       setLegUp(false);
       setTimeout(() => {
-        if(revisionRef.current === revision) setSelected(null);
+        if(revisionRef.current === revision + 1) setSelected(null);
       }, 2000)
     }, 1000)
   }
 
   return (
-    <div>
+    <div className="viewport">
       <MainImg
         legUp={legUp}
         selected={selected}
@@ -84,6 +131,7 @@ function App() {
       <BottomBar
         selectCallback={handleSelect}
       />
+      <Background />
     </div>
   );
 }

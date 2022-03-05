@@ -1,24 +1,73 @@
+.viewport {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: flex-end;
+}
+
 .main-container {
   position: relative;
-  width: 1000px;
-  height: 600px;
+  width: fit-content;
+  height: fit-content;
+  margin-top: 225px;
+}
+
+.bg-container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: -1;
+}
+
+.hbd-text {
+  height: 500px; 
+  width: auto;
+}
+
+.balloon {
+  position: absolute;
+  height: 100px;
+  width: auto;
+  z-index: 1;
+  animation-name: balloon-float;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease;
 }
 
 .mammoth-sheep {
-  position: absolute;
-  bottom: 0px;
-  height: 100%;
+  height: 500px;
   width: auto;
 }
 
 .stomp-target {
-  width: 50px;
-  height: auto;
+  height: 40px;
+  width: auto;
   position: absolute;
-  bottom: 95px;
-  right: 375px;
+  bottom: 70px;
+  right: 235px;
   z-index: 5;
   transform-origin: bottom;
+  animation-name: target-appear;
+  animation-duration: 1s;
+  animation-timing-function: ease;
+}
+
+.flat {
+  transform: scaleY(0.3);
+}
+
+.bottom-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .bottom-bar {
@@ -27,8 +76,16 @@
 }
 
 .bottom-bar-item {
-  width: 200px;
-  height: 200px;
+  height: 150px;
+  width: auto;
+  transition: transform 1s;
+}
+
+.bottom-bar-item:hover {
+  cursor: pointer;
+  animation-name: item-shake;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -44,4 +101,21 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+@keyframes balloon-float {
+  0% {transform: translate(0vh);}
+  50% {transform: translate(0vh,2.5vh);}
+  100% {transform: translate(0vh);}
+}
+
+@keyframes target-appear {
+  from {transform: scale(0);}
+  to {transform: scale(1);}  
+}
+
+@keyframes item-shake {
+  0% {transform: translateY(0vh);}
+  50% {transform: translateY(-2vh);}
+  100% {transform: translateY(0vh);}
 }
