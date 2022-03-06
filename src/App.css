@@ -11,7 +11,7 @@
   position: relative;
   width: fit-content;
   height: fit-content;
-  margin-top: 225px;
+  margin-top: 23.5vh;
 }
 
 .bg-container {
@@ -27,13 +27,13 @@
 }
 
 .hbd-text {
-  height: 500px; 
+  height: 52.6vh; 
   width: auto;
 }
 
 .balloon {
   position: absolute;
-  height: 100px;
+  height: 10.5vh;
   width: auto;
   z-index: 1;
   animation-name: balloon-float;
@@ -43,16 +43,16 @@
 }
 
 .mammoth-sheep {
-  height: 500px;
+  height: 52.6vh;
   width: auto;
 }
 
 .stomp-target {
-  height: 40px;
+  height: 4.2vh;
   width: auto;
   position: absolute;
-  bottom: 70px;
-  right: 235px;
+  bottom: 7.4vh;
+  right: 24.7vh;
   z-index: 5;
   transform-origin: bottom;
   animation-name: target-appear;
@@ -70,13 +70,18 @@
   align-items: center;
 }
 
+.stomp-text {
+  width: 90%;
+  height: auto;
+}
+
 .bottom-bar {
   display: flex;
   flex-direction: row;
 }
 
 .bottom-bar-item {
-  height: 150px;
+  height: 12vh;
   width: auto;
   transition: transform 1s;
 }

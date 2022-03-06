@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
 const items = [
@@ -6,6 +6,7 @@ const items = [
   'a2.png',
   'a3.png',
   'a4.png',
+  'a5.png',
 ]
 
 const desc = [
@@ -13,6 +14,7 @@ const desc = [
   'zzz',
   'running',
   'cereal',
+  'tissue',
 ]
 
 const balloonPositions = [
@@ -57,16 +59,14 @@ const Background = () => (
 
 const MainImg = ({ legUp, selected }) => {
   const n = legUp ? 2 : 1;
-  const scale = (selected && !legUp) ? 0.2 : 1;
   const mammothZ = (selected && !legUp) ? 10 : 1;
   return (
     <div className="main-container">
       {
         selected &&
         <img
-          className= {selected && !legUp ? 'stomp-target' : 'stomp-target flat'} 
+          className={(selected && !legUp) ? 'stomp-target  flat' : 'stomp-target'} 
           src={'assets/' + selected}
-          style={{ transform: `scaleY(${scale})` }}
           alt="Stomped"
         />
       }
@@ -96,6 +96,7 @@ const BottomBar = ({ selectCallback }) => (
       }
     </div>
     <img
+      className="stomp-text"
       src="assets/stomp-text.png"
       alt="stomp"
     />
@@ -105,19 +106,15 @@ const BottomBar = ({ selectCallback }) => (
 function App() {
   const [legUp, setLegUp] =  useState(false);
   const [selected, setSelected] = useState(null);
-  const [revision, setRevision] = useState(0);
-  const revisionRef = useRef();
-  revisionRef.current = revision;
 
   const handleSelect = (toSelect) => {
     if(selected) return;
-    setRevision((prev) => prev + 1)
     setLegUp(true);
     setSelected(toSelect);
     setTimeout(() => {
       setLegUp(false);
       setTimeout(() => {
-        if(revisionRef.current === revision + 1) setSelected(null);
+        setSelected(null);
       }, 2000)
     }, 1000)
   }
